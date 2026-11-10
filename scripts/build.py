@@ -54,7 +54,7 @@ def page(path, title, content, description, article=None):
 </body></html>'''
     target.write_text(doc)
 
-content = '<section class="archive" aria-label="Post archive"><h1 class="archive-title">The blog of Gautam Kamath</h1>'
+content = '<section class="archive" aria-label="Post archive">'
 for year in sorted({x['date'][:4] for x in posts}, reverse=True):
     content += f'<section class="year"><h2>{year}</h2><ul class="post-list">'
     for post in posts:
