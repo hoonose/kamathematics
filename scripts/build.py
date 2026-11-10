@@ -69,7 +69,7 @@ for item in records:
     body = (ROOT / item['source']).read_text()
     heading = f'<header class="article-header"><a class="back" href="{{{{ROOT}}}}/">← All posts</a><h1>{html.escape(item["title"])}</h1>'
     if item['type'] == 'post':
-        heading += f'<p class="meta"><time datetime="{item["date"][:10]}">{date(item)}</time> <span>·</span> {html.escape(item["author"])}</p>'
+        heading += f'<p class="meta"><time datetime="{item["date"][:10]}">{date(item)}</time> <span>·</span> {html.escape(item.get("byline", item["author"]))}</p>'
     heading += '</header>'
     nav = ''
     if item['type'] == 'post':
@@ -82,10 +82,10 @@ for item in records:
         nav += '</nav>'
     page(item['path'], item['title'], '<article class="article">' + heading + '<div class="prose">' + body + '</div>' + nav + '</article>', excerpt(item), article=item)
 
-feed = '<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kamathematics</title><link>' + DOMAIN + '</link><description>Essays and notes by Gautam Kamath</description><language>en</language><atom:link href="' + DOMAIN + '/feed.xml" rel="self" type="application/rss+xml"/>'
+feed = '<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Kamathematics</title><link>' + DOMAIN + '</link><description>Essays and notes by Gautam Kamath</description><language>en</language><atom:link href="' + DOMAIN + '/feed.xml" rel="self" type="application/rss+xml"/>'
 for post in posts:
     url = DOMAIN + '/' + post['path'] + '/'
-    feed += '<item><title>' + escape(post['title']) + '</title><link>' + url + '</link><guid isPermaLink="true">' + url + '</guid><pubDate>' + format_datetime(datetime.fromisoformat(post['date'])) + '</pubDate><description>' + escape((ROOT / post['source']).read_text().replace('{{ROOT}}', DOMAIN)) + '</description></item>'
+    feed += '<item><title>' + escape(post['title']) + '</title><link>' + url + '</link><guid isPermaLink="true">' + url + '</guid><pubDate>' + format_datetime(datetime.fromisoformat(post['date'])) + '</pubDate><dc:creator>' + escape(post.get('byline', post['author'])) + '</dc:creator><description>' + escape((ROOT / post['source']).read_text().replace('{{ROOT}}', DOMAIN)) + '</description></item>'
 feed += '</channel></rss>'
 (ROOT / 'feed.xml').write_text(feed)
 (ROOT / 'sitemap.xml').write_text('<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join('<url><loc>' + DOMAIN + '/' + x + '</loc></url>' for x in [''] + [p['path'] + '/' for p in records]) + '</urlset>')
