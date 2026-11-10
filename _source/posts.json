@@ -282,16 +282,5 @@
       "Uncategorized"
     ],
     "author": "Gautam Kamath"
-  },
-  {
-    "title": "About",
-    "date": "2019-06-17T22:31:28+00:00",
-    "modified": "2019-06-18T00:02:01+00:00",
-    "path": "about",
-    "source": "_source/posts/about.html",
-    "original_url": "https://kamathematics.wordpress.com/about/",
-    "type": "page",
-    "categories": [],
-    "author": "Gautam Kamath"
   }
 ]

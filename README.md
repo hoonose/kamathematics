@@ -27,7 +27,8 @@ also works because navigation and asset URLs are relative.
 
 ## Migration
 
-- 22 published posts (June 2019–June 2026), plus the About page.
+- 22 published posts (June 2019–June 2026).
+- The former About URL redirects to the academic homepage.
 - Original publication dates, titles, body text, guest-post credits, and paths retained.
 - 187 local images, including the original equation images and their LaTeX alt text.
 - RSS contains full post bodies. Sitemap and custom 404 included.

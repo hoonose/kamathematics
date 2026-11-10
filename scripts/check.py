@@ -18,7 +18,7 @@ class Links(HTMLParser):
         for attr in ('src', 'href'):
             if attrs.get(attr): self.links.append((tag,attr,attrs[attr]))
 
-pages = [ROOT / 'index.html', ROOT / '404.html'] + [ROOT / x['path'] / 'index.html' for x in records]
+pages = [ROOT / 'index.html', ROOT / '404.html', ROOT / 'about/index.html'] + [ROOT / x['path'] / 'index.html' for x in records]
 parsed = {}
 for path in pages:
     parser=Links(); text=path.read_text(); parser.feed(text); parsed[path.resolve()]=parser

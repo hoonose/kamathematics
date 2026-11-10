@@ -48,7 +48,7 @@ def page(path, title, content, description, article=None):
 <link rel="alternate" type="application/rss+xml" title="Kamathematics" href="{prefix}/feed.xml">
 </head><body><a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="{prefix}/">Kamathematics</a>
-<nav aria-label="Main navigation"><a href="{prefix}/">Posts</a><a href="{prefix}/about/">About</a><a href="https://www.gautamkamath.com/">Homepage</a></nav></header>
+<nav aria-label="Main navigation"><a href="{prefix}/">Posts</a><a href="https://www.gautamkamath.com/">Homepage</a></nav></header>
 <main id="main">{content}</main>
 <footer><span>© {max(x['date'][:4] for x in records)} Gautam Kamath · Kamathematics</span><div><a href="{prefix}/feed.xml">RSS</a><a href="https://www.gautamkamath.com/">Academic homepage</a></div></footer>
 </body></html>'''
@@ -96,4 +96,8 @@ notfound = (ROOT / '404/index.html').read_text().replace('../', '/')
 (ROOT / '404.html').write_text(notfound)
 (ROOT / '404/index.html').unlink()
 (ROOT / '404').rmdir()
-print(f'Built {len(posts)} posts, About, archive, RSS, sitemap, and 404 page.')
+print(f'Built {len(posts)} posts, archive, RSS, sitemap, and 404 page.')
+
+# Preserve old About links without maintaining a separate biography.
+(ROOT / 'about').mkdir(exist_ok=True)
+(ROOT / 'about/index.html').write_text('<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Gautam Kamath</title><meta http-equiv="refresh" content="0; url=https://www.gautamkamath.com/">\n<link rel="canonical" href="https://www.gautamkamath.com/"><meta name="robots" content="noindex"></head>\n<body><p><a href="https://www.gautamkamath.com/">Continue to Gautam Kamath’s homepage.</a></p></body></html>\n')
